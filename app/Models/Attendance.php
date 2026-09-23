@@ -8,10 +8,16 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Attendance extends Model
 {
-    //
+    // Tambahkan 'jenis_peserta' ke dalam fillable
     protected $fillable = [
-        'meeting_id', 'member_name', 'fraksi', 'status', 'remarks'
+        'meeting_id',
+        'jenis_peserta',
+        'member_name',
+        'fraksi',
+        'status',
+        'remarks'
     ];
+
 
     public function meeting(): BelongsTo
     {

@@ -23,8 +23,8 @@ class PublicMeetingController extends Controller
         // Menggunakan 'with' untuk eager loading data relasi (lampiran & presensi) agar query lebih optimal.
         // firstOrFail() akan menampilkan halaman 404 jika slug tidak ditemukan.
         $meeting = Meeting::where('slug', $slug)
-                          ->with(['attachments', 'attendances'])
-                          ->firstOrFail();
+            ->with(['attachments', 'attendances'])
+            ->firstOrFail();
 
         // Kirim data ke view public/meetings/show.blade.php
         return view('public.meetings.show', compact('meeting'));
