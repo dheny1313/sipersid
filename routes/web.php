@@ -27,7 +27,7 @@ Route::get('/berita/{slug}', [PublicPostController::class, 'show'])->name('publi
 // Artinya: Maksimal 5 kali submit (request) dalam waktu 1 menit untuk setiap alamat IP.
 Route::post('/sidang/{slug}/presensi', [PublicAttendanceController::class, 'store'])
     ->name('public.attendances.store');
-    //->middleware('throttle:5,1');
+//->middleware('throttle:5,1');
 
 // -------------------------------------------------------------
 // 2. HALAMAN AUTH & PROFIL (Wajib Login)
@@ -50,9 +50,21 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::resource('posts', PostController::class);
 
     // --- RUTE KUSTOM MEETING (HARUS DI ATAS RESOURCE) ---
+
     // Presensi Sidang
+
+    // --- MENU KHUSUS DAFTAR PRESENSI TERBUKA ---
+    Route::get('/attendances/opened', [AttendanceController::class, 'listOpened'])->name('attendances.opened');
+
+    // (Ini rute lama Anda yang sudah ada, biarkan saja di bawah rute baru)
+    Route::get('meetings/{meeting}/attendances', [AttendanceController::class, 'index'])->name('attendances.index');
+    Route::post('meetings/{meeting}/attendances', [AttendanceController::class, 'store'])->name('attendances.store');
     Route::get('meetings/{meeting}/attendances', [AttendanceController::class, 'show'])->name('attendances.show');
     Route::post('meetings/{meeting}/attendances', [AttendanceController::class, 'store'])->name('attendances.store');
+
+    // Export & Import Presensi Excel
+    Route::get('meetings/{meeting}/attendances/export', [AttendanceController::class, 'exportExcel'])->name('attendances.export');
+    Route::post('meetings/{meeting}/attendances/import', [AttendanceController::class, 'importExcel'])->name('attendances.import');
 
     // Fitur Tambahan Meeting
     Route::post('meetings/{meeting}/upload-attachment', [MeetingController::class, 'storeAttachment'])->name('meetings.attachment.store');

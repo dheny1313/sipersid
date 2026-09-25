@@ -19,7 +19,7 @@
     <div class="md:col-span-2 bg-white rounded-lg shadow p-6">
         <h2 class="text-lg font-semibold mb-4 border-b pb-2">Data & Hasil Sidang</h2>
 
-        <form action="{{ route('admin.meetings.update', $meeting->id) }}" method="POST">
+        <form action="{{ route('admin.meetings.update', $meeting) }}" method="POST">
             @csrf
             @method('PUT')
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Meeting;
 use App\Models\MeetingAttachment;
+use GrahamCampbell\ResultType\Success;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -58,23 +59,22 @@ class MeetingController extends Controller
     public function update(Request $request, Meeting $meeting)
     {
         $request->validate([
-            'title' => 'required|string|max:255',
-            'meeting_date' => 'required|date',
-            'location' => 'required|string|max:255',
+            'title'          => 'required|string|max:255',
+            'meeting_date'   => 'required|date',
+            'location'       => 'required|string|max:255',
+            'status'         => 'nullable|string',
+            'result_summary' => 'nullable|string',
         ]);
 
         $meeting->update([
-            'title' => $request->title,
-            // Optional: Update slug jika judul berubah (bisa dilewati jika ingin slug tetap)
-            // 'slug' => Str::slug($request->title) . '-' . time(),
-            'meeting_date' => $request->meeting_date,
-            'location' => $request->location,
-            'description' => $request->description,
-            'status' => $request->status ?? $meeting->status,
+            'title'          => $request->title,
+            'meeting_date'   => $request->meeting_date,
+            'location'       => $request->location,
+            'status'         => $request->status ?? $meeting->status,
             'result_summary' => $request->result_summary,
         ]);
 
-        return back()->with('success', 'Data & Hasil sidang berhasil diperbarui.');
+        return redirect()->route('admin.meetings.index')->with('success', 'Data sidang berhasil diperbarui');
     }
 
     // --- FUNGSI UNTUK LAMPIRAN DOKUMEN ---
