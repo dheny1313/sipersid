@@ -44,9 +44,10 @@ class Post extends Model
 
     protected static function booted()
     {
-        static::creating(function ($meeting) {
-            if (empty($meeting->slug)) {
-                $meeting->slug = Str::slug($meeting->title . '-' . now()->timestamp);
+        static::creating(function ($post) {
+            // Kita ubah $meeting menjadi $post
+            if (empty($post->slug)) {
+                $post->slug = \Illuminate\Support\Str::slug($post->title . '-' . now()->timestamp);
             }
         });
     }

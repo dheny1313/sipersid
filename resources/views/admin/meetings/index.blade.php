@@ -53,7 +53,7 @@
                                 @endif
 
                                 {{-- Tombol Hapus (Harus menggunakan tag form) --}}
-                                <form action="{{ route('admin.meetings.destroy', $meeting->id) }}" method="POST"
+                                <form action="{{ route('admin.meetings.destroy', $meeting) }}" method="POST"
                                     class="inline-block"
                                     onsubmit="return confirm('Apakah Anda yakin ingin menghapus jadwal ini beserta seluruh lampirannya?');">
                                     @csrf

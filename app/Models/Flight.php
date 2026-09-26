@@ -15,8 +15,8 @@ class Flight extends Model
         'flight_number',
         'departure_time',
         'return_time',
-        'ticket_code'
-
+        'ticket_code',
+        'ticket_image' // <-- Tambahkan ini
     ];
 
     protected function casts(): array

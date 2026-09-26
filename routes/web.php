@@ -20,9 +20,9 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/sidang', [PublicMeetingController::class, 'index'])->name('public.meetings.index');
 Route::get('/sidang/{slug}', [PublicMeetingController::class, 'show'])->name('public.meetings.show');
 
-Route::get('/berita', [PublicPostController::class, 'index'])->name('public.posts.index');
-Route::get('/berita/{slug}', [PublicPostController::class, 'show'])->name('public.posts.show');
-
+// Route Portal Berita Publik
+Route::get('/berita', [App\Http\Controllers\PublicPostController::class, 'index'])->name('public.posts.index');
+Route::get('/berita/{slug}', [App\Http\Controllers\PublicPostController::class, 'show'])->name('public.posts.show');
 //presensi public
 // Artinya: Maksimal 5 kali submit (request) dalam waktu 1 menit untuk setiap alamat IP.
 Route::post('/sidang/{slug}/presensi', [PublicAttendanceController::class, 'store'])
@@ -78,6 +78,8 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::resource('meetings', MeetingController::class);
 
     // CRUD Data Penerbangan Rapat Luar Kota
+    Route::get('flights/export', [FlightController::class, 'exportExcel'])->name('flights.export');
+    Route::post('flights/import', [FlightController::class, 'importExcel'])->name('flights.import');
     Route::resource('flights', FlightController::class);
 });
 

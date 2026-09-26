@@ -147,7 +147,8 @@ class MeetingController extends Controller
 
         // 2. Data di tabel meeting_attachments & attendances biasanya akan otomatis
         // terhapus jika Anda menggunakan `onDelete('cascade')` di Migration database.
-        // Jika tidak, hapus manual: $meeting->attachments()->delete();
+        // Jika tidak, hapus manual:
+        $meeting->attachments()->delete();
 
         // 3. Hapus data meeting utama
         $meeting->delete();
