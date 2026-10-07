@@ -21,8 +21,8 @@ Route::get('/sidang', [PublicMeetingController::class, 'index'])->name('public.m
 Route::get('/sidang/{slug}', [PublicMeetingController::class, 'show'])->name('public.meetings.show');
 
 // Route Portal Berita Publik
-Route::get('/berita', [App\Http\Controllers\PublicPostController::class, 'index'])->name('public.posts.index');
-Route::get('/berita/{slug}', [App\Http\Controllers\PublicPostController::class, 'show'])->name('public.posts.show');
+Route::get('/berita', [PublicPostController::class, 'index'])->name('public.posts.index');
+Route::get('/berita/{slug}', [PublicPostController::class, 'show'])->name('public.posts.show');
 //presensi public
 // Artinya: Maksimal 5 kali submit (request) dalam waktu 1 menit untuk setiap alamat IP.
 Route::post('/sidang/{slug}/presensi', [PublicAttendanceController::class, 'store'])
